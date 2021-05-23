@@ -29,7 +29,7 @@ export default function CodeFilterPlugin (options = {}) {
       let map = undefined
 
       if (ext === '.json') {
-        code = dataToEsm(JSON.parse(code), {
+        code = dataToEsm(parseJSON(code), {
           preferConst: options.preferConst,
           compact: options.compact,
           namedExports: options.namedExports,
@@ -62,22 +62,22 @@ function codeFilter (code, options) {
   })
 
   function isPreserved (variable) {
-    let env
+    let env = dotenv.config(options.dotenv)
 
-    if (options.useVite) {
-      env = import.meta.env
-    } else {
-      env = dotenv.config()
-
-      if (env.error) {
-        error(env.error.message)
-      }
-
-      env = env.parsed
+    if (env.error) {
+      error(env.error.message)
     }
+
+    env = env.parsed
 
     return env[variable] === 'true'
   }
+}
+
+function parseJSON (code) {
+  const semiEndRe = /,\s*}/
+  code = code.replace(semiEndRe, m => m.substr(1))
+  return JSON.parse(code)
 }
 
 function transformOptions (options) {
@@ -91,8 +91,8 @@ function transformOptions (options) {
 function applyOptions (options) {
   const defaultOptions = {
     ext: ['js', 'json'],
-    useVite: false,
-    indent: '\t'
+    indent: '\t',
+    dotenv: {}
   }
   for (const k of Object.keys(options)) {
     if (defaultOptions[k] === void(0)) {

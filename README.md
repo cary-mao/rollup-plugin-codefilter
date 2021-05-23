@@ -58,19 +58,16 @@ var test = (function () {
 ```
 
 # options
-### `useVite`
-
-Type: `Boolean`
-Default: `false`
-
-If used as vite plugin, it must be `true`.
-
 ### `ext`
 
 Type: `Array<string>`
 Default: `[js, json]`
 
 Only handle the module which match the provided extension. Currently only support `js` and `json`.
+
+### `dotenv`
+
+Refer to dotenv's [options](https://www.npmjs.com/package/dotenv#options)
 
 ### `exclude`
 

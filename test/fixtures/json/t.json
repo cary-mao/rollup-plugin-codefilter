@@ -1,0 +1,9 @@
+{
+  // ifdef keep
+  "keep": "hello world!",
+  // endif
+
+  // ifdef discard
+  "discard": "it will be discarded."
+  // endif
+}
