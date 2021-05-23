@@ -71,19 +71,13 @@ function codeFilter (code, options) {
   })
 
   function isPreserved (variable) {
-    let env;
+    let env = dotenv__default['default'].config(options.dotenv);
 
-    if (options.useVite) {
-      env = import.meta.env;
-    } else {
-      env = dotenv__default['default'].config(options.dotenv);
-
-      if (env.error) {
-        error(env.error.message);
-      }
-
-      env = env.parsed;
+    if (env.error) {
+      error(env.error.message);
     }
+
+    env = env.parsed;
 
     return env[variable] === 'true'
   }
@@ -106,7 +100,6 @@ function transformOptions (options) {
 function applyOptions (options) {
   const defaultOptions = {
     ext: ['js', 'json'],
-    useVite: false,
     indent: '\t',
     dotenv: {}
   };
