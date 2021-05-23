@@ -4,11 +4,9 @@
   "description": "A plugin for rollup/vite to filter code by dotenv variables",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "test": "npm run build && rollup -c test/rollup.config.js"
+    "test": "rollup -c test/rollup.config.js"
   },
   "devDependencies": {
-    "@rollup/plugin-json": "^4.1.0",
     "@types/node": "^15.6.0",
     "ava": "^3.15.0",
     "cz-conventional-changelog": "^3.3.0",

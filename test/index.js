@@ -1,11 +1,11 @@
-import json from './k.json'
+function log () {
+  // ifdef keep
+  console.log('hello world!')
+  // endif
 
-function d () {
-  // ifdef sdfsdf
-  var a = 1
-  console.log(a)
-  console.log(json.name)
+  // ifdef discard
+  console.log('it will be discarded.')
   // endif
 }
 
-export default d
+export default log

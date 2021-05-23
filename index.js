@@ -6,6 +6,7 @@ import {createFilter, dataToEsm} from '@rollup/pluginutils'
 
 export default function CodeFilterPlugin (options = {}) {
   const filter = createFilter(options.include, options.exclude)
+
   options = applyOptions(options)
   transformOptions(options)
 
@@ -31,7 +32,8 @@ export default function CodeFilterPlugin (options = {}) {
         code = dataToEsm(JSON.parse(code), {
           preferConst: options.preferConst,
           compact: options.compact,
-          namedExports: options.namedExports
+          namedExports: options.namedExports,
+          indent: options.indent
         })
         map = {
           mappings: ''
@@ -44,7 +46,7 @@ export default function CodeFilterPlugin (options = {}) {
 }
 
 function codeFilter (code, options) {
-  const re = /[ \t]*\/\/\s*ifdef\s+([^\s\n]+)\n([\s\S]+?)\s*\/\/\s*endif/g
+  const re = /[ \t]*\/\/\s*ifdef\s+([^\s\n]+)\n([\s\S]+?)\s*\/\/\s*endif\s*?(\n\n)?/g
 
   return code.replace(/\r\n/g, '\n').replace(re, function () {
     // arguments is matched array
@@ -89,7 +91,8 @@ function transformOptions (options) {
 function applyOptions (options) {
   const defaultOptions = {
     ext: ['js', 'json'],
-    useVite: false
+    useVite: false,
+    indent: '\t'
   }
   for (const k of Object.keys(options)) {
     if (defaultOptions[k] === void(0)) {

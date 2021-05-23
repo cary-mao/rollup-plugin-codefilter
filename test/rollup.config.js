@@ -1,4 +1,4 @@
-import codeFilter from '../dist/codefilter.es';
+import codeFilter from '../index';
 
 process.chdir(__dirname);
 
