@@ -1,5 +1,13 @@
 # rollup-plugin-codefilter
-This is a plugin for rollup/vite that filter code by dotenv variables.
+This is a plugin for rollup/vite that filter code by dotenv variables. It allows user to use `// ifdef {env variable} // endif`comment to keep or skrip code. For example:
+```js
+// ifdef DEV
+if (process.env.DEV) {
+  console.log('dev')
+}
+// endif
+```
+If a DEV variable in dotenv and the value of it is `true` string, the code between `ifdef` and `endif` comment will be preserved. Otherwise, it will be removed.
 
 # install
 ```bash

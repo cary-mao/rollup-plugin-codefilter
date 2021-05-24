@@ -18,10 +18,10 @@ export default function CodeFilterPlugin (options = {}) {
       const fileUrl = this.getModuleInfo(id).id
       const ext = path.extname(fileUrl)
 
-      // skip empty
+      // skrip if empty
       if (!ext) return null
 
-      // skip if no matched
+      // skrip if no matched
       if (!options.ext[ext.substr(1)]) return null
 
       code = codeFilter(code, options)
